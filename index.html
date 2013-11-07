@@ -23,9 +23,8 @@
 				<video class="col-xs-12" data-bind="attr: { src: currentlyPlaying() }"></video>
 			</div>
 			<div class="col-xs-4">
-				<ul class="list-unstyled">
-					<li>test 1</li>
-					<li>test 2</li>
+				<ul class="list-unstyled" data-bind="foreach: files">
+					<li data-bind="text: name"></li>
 				</ul>
 			</div>
 		</div>
