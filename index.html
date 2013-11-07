@@ -14,8 +14,10 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-12">
-				<input type="file" accept="video/*" data-bind="event: { change: function() { filesSelected($element.files); } }" />
+				<input type="file" accept="video/*" multiple data-bind="event: { change: function() { filesSelected($element.files); } }" />
+				<input id="rotate" type="checkbox" /><label for="rotate">Rotate 90deg</label>
 			</div>
+		</div>
 		<div class="row">
 			<div class="col-xs-8">
 				<video class="col-xs-12" data-bind="attr: { src: currentlyPlaying() }"></video>
