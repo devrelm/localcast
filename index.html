@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>LocalCast</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
+	<style>
+
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<input type="file" accept="video/*" data-bind="event: { change: function() { filesSelected($element.files); } }" />
+			</div>
+		<div class="row">
+			<div class="col-xs-8">
+				<video class="col-xs-12" data-bind="attr: { src: currentlyPlaying() }"></video>
+			</div>
+			<div class="col-xs-4">
+				<ul class="list-unstyled">
+					<li>test 1</li>
+					<li>test 2</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<script src="js/jquery-2.0.3.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/knockout-3.0.0.js"></script>
+	<script>
+		var ViewModel = function() {
+			var self = this;
+
+			self.files = ko.observableArray([]);
+			self.currentlyPlayingIndex = ko.observable(-1);
+
+			self.currentlyPlaying = ko.computed(function() {
+				// bounds check the index on the files array
+				if (self.currentlyPlayingIndex() < 0 || self.currentlyPlayingIndex() >= self.files().length)
+					return ''; // an empty string will clear the video
+
+				// return an object url for the file at the index
+				// TODO: we need to explicitely unload the object URL with URL.revokeObjectURL()
+				return URL.createObjectURL(self.files()[self.currentlyPlayingIndex()]);
+			}, this);
+
+			self.filesSelected = function (fileList)
+			{
+				// pushing this way will supposedly prevent the change from being raised for each file in fileList
+				// TODO: write up a simple test to check that this is actually the case
+				self.files.push.apply(self.files, fileList);
+
+				if (self.currentlyPlayingIndex() < 0)
+					self.currentlyPlayingIndex(0);
+			};
+		};
+
+		var vm = new ViewModel();
+
+		ko.applyBindings(vm);
+	</script>
+</body>
+</html>
