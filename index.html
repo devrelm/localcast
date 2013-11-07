@@ -24,7 +24,7 @@
 			</div>
 			<div class="col-xs-4">
 				<ul class="list-unstyled" data-bind="foreach: playlist">
-					<li data-bind="text: name"></li>
+					<li data-bind="text: name, click: function () { $parent.currentlyPlayingIndex($index()); }"></li>
 				</ul>
 			</div>
 		</div>
