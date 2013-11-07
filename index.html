@@ -57,7 +57,8 @@
 				// TODO: write up a simple test to check that this is actually the case
 				self.files.push.apply(self.files, fileList);
 
-				if (self.currentlyPlayingIndex() < 0)
+				// if no files are playing, queue up the first file in the list
+				if (self.files().length > 0 && self.currentlyPlayingIndex() < 0)
 					self.currentlyPlayingIndex(0);
 			};
 		};
