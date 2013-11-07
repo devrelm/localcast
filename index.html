@@ -23,7 +23,7 @@
 				<video class="col-xs-12" data-bind="attr: { src: currentlyPlaying() }"></video>
 			</div>
 			<div class="col-xs-4">
-				<ul class="list-unstyled" data-bind="foreach: files">
+				<ul class="list-unstyled" data-bind="foreach: playlist">
 					<li data-bind="text: name"></li>
 				</ul>
 			</div>
@@ -37,17 +37,17 @@
 		var ViewModel = function() {
 			var self = this;
 
-			self.files = ko.observableArray([]);
+			self.playlist = ko.observableArray([]);
 			self.currentlyPlayingIndex = ko.observable(-1);
 
 			self.currentlyPlaying = ko.computed(function() {
-				// bounds check the index on the files array
-				if (self.currentlyPlayingIndex() < 0 || self.currentlyPlayingIndex() >= self.files().length)
+				// bounds check the index on the playlist array
+				if (self.currentlyPlayingIndex() < 0 || self.currentlyPlayingIndex() >= self.playlist().length)
 					return ''; // an empty string will clear the video
 
 				// return an object url for the file at the index
 				// TODO: we need to explicitely unload the object URL with URL.revokeObjectURL()
-				return URL.createObjectURL(self.files()[self.currentlyPlayingIndex()]);
+				return URL.createObjectURL(self.playlist()[self.currentlyPlayingIndex()]);
 			}, this);
 
 			self.filesSelected = function (fileList)
@@ -57,7 +57,7 @@
 
 				// pushing this way will supposedly prevent the change from being raised for each file in fileList
 				// TODO: write up a simple test to check that this is actually the case
-				self.files.push.apply(self.files, fileList);
+				self.playlist.push.apply(self.playlist, fileList);
 
 				// if no files are playing, queue up the first file in the list
 				if (self.currentlyPlayingIndex() < 0)
