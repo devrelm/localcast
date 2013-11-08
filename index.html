@@ -7,22 +7,22 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 	<style>
-		.rotate90
+		#main-event.rotate90
 		{
 			-webkit-transform: translate(0, -100%) rotate(90deg);
 			-webkit-transform-origin: bottom left;
 		}
 
-		.rotate90::-webkit-media-controls
+		#main-event.rotate90::-webkit-media-controls
 		{
-			flex-direction: row;
 			align-items: flex-end;
 		}
 
-		.rotate90::-webkit-media-controls-enclosure
+		#main-event.rotate90::-webkit-media-controls-enclosure
 		{
-			-webkit-transform: rotate(-90deg);
+			-webkit-transform: translate(100%) rotate(-90deg);
 			-webkit-transform-origin: bottom left;
+			width: 470px;
 		}
 
 		#main-event:not(.rotate90)
@@ -30,23 +30,18 @@
 			width: 100%;
 		}
 
-		/*
-		@media (min-width: 768px)
-		{
-		*/
-			#main-event.rotate90 { height: 470px; }
-		/*
-		}
-		*/
+		#main-event.rotate90 { height: 470px; }
 
 		@media (min-width: 992px)
 		{
 			#main-event.rotate90 { height: 617px; }
+			#main-event.rotate90::-webkit-media-controls-enclosure { width: 617px; }
 		}
 
 		@media (min-width: 1200px)
 		{
 			#main-event.rotate90 { height: 750px; }
+			#main-event.rotate90::-webkit-media-controls-enclosure { width: 750px; }
 		}
 	</style>
 </head>
